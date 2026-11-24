@@ -63,6 +63,7 @@ p{margin:0}
 .ph-t{color:var(--c-muted)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
+select{appearance:none;-webkit-appearance:none;background-color:var(--c-field);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%233C2F28' stroke-width='1.4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:11px 7px;padding-right:34px!important;line-height:normal;cursor:pointer}
 /* ---------- Button ---------- */
 .Button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:0 22px;border:1px solid transparent;border-radius:var(--r-s);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s,border-color .2s;white-space:nowrap}
 .Button--primary{background:var(--c-primary);color:var(--c-on-primary)}
@@ -226,7 +227,8 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.4;stro
 .SectionHeading .side{display:flex;gap:8px;align-items:center}
 .section{padding-block:56px}
 @media (min-width:1000px){.section{padding-block:104px}}
-#app > .section:not(.Fabrics):not(.HomeSeo) + .section:not(.Fabrics):not(.HomeSeo){padding-top:0!important}
+#app > .section:not(.Fabrics):not(.HomeSeo):not(.PDOutfits) + .section:not(.Fabrics):not(.HomeSeo):not(.PDOutfits){padding-top:0!important}
+#app > .PDOutfits + .section{padding-top:104px!important}
 #app > .HomeSeo + .section{padding-top:104px!important}
 @media (max-width:999px){#app > .HomeSeo + .section{padding-top:56px!important}}
 #app > .Fabrics + .section{padding-top:56px!important}
@@ -337,7 +339,7 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.4;stro
 .Result .big{font-family:var(--font-display);font-size:72px;line-height:.9;font-weight:500;font-variant-numeric:tabular-nums}
 .Result p{font-size:13px;color:var(--c-muted)}
 .Result .row{display:flex;gap:8px}
-.Result select{height:44px;border:1px solid var(--c-line-2);background:var(--c-field);border-radius:var(--r-s);padding:0 8px;font:inherit;font-size:13px;color:var(--c-ink)}
+.Result select{height:44px;border:1px solid var(--c-line-2);border-radius:var(--r-s);padding:0 8px;font:inherit;font-size:13px;color:var(--c-ink)}
 .Result .Button{flex:1;padding:0 12px}
 
 /* ---------- Příběh / ruční výroba ---------- */
@@ -590,7 +592,7 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.4;stro
 .Toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-block:36px 20px}
 .Toolbar .l{display:flex;align-items:center;gap:16px}
 .Toolbar em{color:var(--c-muted);font-size:13px}
-.Toolbar select{height:40px;border:1px solid var(--c-line-2);background:var(--c-field);border-radius:var(--r-s);padding:0 12px;font:inherit;font-size:13px;color:var(--c-ink)}
+.Toolbar select{height:40px;border:1px solid var(--c-line-2);border-radius:var(--r-s);padding:0 12px;font:inherit;font-size:13px;color:var(--c-ink)}
 .FilterPanel{display:none;grid-template-columns:1fr;gap:20px;background:var(--c-surface);border:1px solid var(--c-line);padding:20px;margin-bottom:24px;border-radius:var(--r-s)}
 .FilterPanel.open{display:grid}
 @media (min-width:820px){.FilterPanel{grid-template-columns:repeat(3,1fr)}}
@@ -687,11 +689,13 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.4;stro
 .PDCombo .eyebrow,.PDOutfits .eyebrow{color:var(--c-muted)}
 .PDOutfits{background:var(--c-field)}
 .PDOutfits .sub{font-size:13px;color:var(--c-muted)}
-.ogrid{display:grid;gap:20px}
-@media (min-width:820px){.ogrid{grid-template-columns:repeat(2,1fr)}}
-.OutfitCard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);background:var(--c-bg);min-width:0}
-.OutfitCard .pic .Ph{height:100%;min-height:340px}
-.OutfitCard .txt{padding:24px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.ogrid{display:grid;gap:20px;grid-template-columns:1fr}
+@media (min-width:820px){.ogrid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}}
+@media (min-width:1000px){.ogrid{grid-template-columns:repeat(var(--n,3),minmax(0,1fr))}}
+.OutfitCard{display:flex;flex-direction:column;background:var(--c-bg);min-width:0}
+.OutfitCard .pic .Ph{aspect-ratio:4/3;width:100%}
+.OutfitCard .pic img{object-position:50% 22%}
+.OutfitCard .txt{flex:1;padding:24px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .OutfitCard h3{font-size:30px}
 .OutfitCard ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--c-line)}
 .OutfitCard li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--c-line);font-size:13px}
@@ -703,9 +707,8 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.4;stro
 .OutfitCard .tot{display:flex;justify-content:space-between;font-size:13px;margin-top:auto}
 .OutfitCard .tot .Price{font-size:16px}
 .OutfitCard .add{display:grid;grid-template-columns:auto 1fr;gap:8px}
-.OutfitCard select{height:44px;border:1px solid var(--c-line-2);background:var(--c-field);border-radius:var(--r-s);padding:0 8px;font:inherit;font-size:13px;color:var(--c-ink)}
+.OutfitCard select{height:44px;min-width:76px;border:1px solid var(--c-line-2);border-radius:var(--r-s);padding:0 12px;font:inherit;font-size:13px;color:var(--c-ink)}
 .OutfitCard .Button{padding:0 10px;min-width:0}
-@media (max-width:549px){.OutfitCard{grid-template-columns:1fr}.OutfitCard .pic .Ph{min-height:0;aspect-ratio:4/3}}
 .SizeIdBox{display:grid;grid-template-columns:auto 1fr;gap:12px 14px;align-items:center;padding:16px;background:var(--c-surface);border-radius:var(--r-s);margin-top:18px}
 .SizeIdBox.hl{outline:2px solid var(--c-terracotta)}
 .SizeIdBox b{font-size:14px}
@@ -1270,7 +1273,7 @@ function detail(id){const p=byId(id);if(!p)return notFound();PD.color=PD.pid===i
   </div></div>
  </div></div>
  <section class="section PDCombo" aria-labelledby="kb-h"><div class="wrap"><div class="SectionHeading"><div><p class="eyebrow">Ladí se vším</p><h2 id="kb-h">Kombinujte <em>s</em></h2></div></div>${carousel(others,'pdCar')}</div></section>
- ${outs.length?`<section class="section PDOutfits" aria-labelledby="of-h"><div class="wrap"><div class="SectionHeading"><div><p class="eyebrow">Kapsulový šatník</p><h2 id="of-h">Celé outfity s tímto <em>kouskem</em></h2></div><p class="sub">Vyberte velikost a přidejte celý outfit jedním klikem.</p></div><div class="ogrid">${outs.map(o=>outfitCard(o,id)).join('')}</div></div></section>`:''}`}
+ ${outs.length?`<section class="section PDOutfits" aria-labelledby="of-h"><div class="wrap"><div class="SectionHeading"><div><p class="eyebrow">Kapsulový šatník</p><h2 id="of-h">Celé outfity s tímto <em>kouskem</em></h2></div><p class="sub">Vyberte velikost a přidejte celý outfit jedním klikem.</p></div><div class="ogrid" style="--n:${Math.min(outs.length,3)}">${outs.map(o=>outfitCard(o,id)).join('')}</div></div></section>`:''}`}
 function renderPD(){const p=byId(PD.id);if(!p)return;const cr=CRAFT[p.id];
  const items=[{src:`img/${p.id}.jpg`,l:'Na modelce',alt:p.n+' na modelce'},{src:`img/${p.id}-produkt.jpg`,l:'Produkt',alt:p.n},{src:`img/latka-${p.id}.jpg`,l:'Detail materiálu',alt:'Detail látky'},{src:cr[0],l:cr[1],alt:cr[1]},{video:1,src:`img/latka-${p.id}.jpg`,l:'Video: látka v pohybu'},...(ALSO[p.id]||[]).slice(0,1).map(o=>({src:`img/${o}.jpg`,l:'V kombinaci: '+byId(o).n,alt:p.n+' v kombinaci'}))];
  $('#gallery').innerHTML=`<div class="track" id="gtrack">${items.map((m,i)=>`<figure class="${m.video?'vid':''}">${m.video?`<button class="Ph is-img" data-video="1" aria-label="Přehrát video"><img src="${m.src}" alt="" loading="lazy"><span class="play">${ic('play')}</span><span class="vl">Video doplníme po natáčení (konec listopadu)</span></button>`:ph('',{src:m.src,alt:m.alt})}<figcaption>${m.l}</figcaption></figure>`).join('')}</div><p class="gcount" aria-hidden="true"><span id="gcur">1</span> / ${items.length}</p>${PD.color!==p.colors[0]?`<p class="note">Na fotkách barva ${COLORS[p.colors[0]].n}. Fotky barvy ${COLORS[PD.color].n} doplníme.</p>`:''}`;
